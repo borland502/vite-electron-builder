@@ -25,9 +25,9 @@ and best practices.
 Follow these steps to get started with the template:
 
 1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be logged in) or just clone this repo.
-2. Go to project folder and run `npm run init`.
-3. Start application in development mode by `npm start`.
-4. Compile executable by `npm run compile`.
+2. Go to project folder and run `bun run init`.
+3. Start application in development mode by `bun run start`.
+4. Compile executable by `bun run compile`.
  
 That's all you need. 😉
 
@@ -77,7 +77,7 @@ Initially, the repository contains only a few packages.4
 ### Packages with building tools:
 
 - [`packages/integrate-renderer`](packages/integrate-renderer) - A helper package that is not included in the runtime.
-  It is used in `npm run init` to configure a new interface package.
+  It is used in `bun run init` to configure a new interface package.
 - [`packages/electron-versions`](packages/electron-versions) - A set of helper functions to get the versions of internal components bundled within Electron.
 
 ### Packages with app logic:
@@ -94,7 +94,7 @@ you can use any web application based on any framework or bundler as a package f
 There is only one requirement: the template expects to import renderer by `@app/renderer` name.
 
 > [!TIP]
-> You can create new renderer package in interactive mode by `npm run init`.
+> You can create new renderer package in interactive mode by `bun run init`.
 
 > [!NOTE]
 > If you are using a bundler other than vite,
@@ -108,7 +108,7 @@ When an application is ready to distribute, you need to compile it into executab
 We are using [electron-builder] for
 this.
 
-- You can compile application locally by `npm run compile`.
+- You can compile application locally by `bun run compile`.
   In this case, you will get executable that you cat share, but it will not support auto-updates out-of-box.
 - To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates. This is done by GitHub action in [release.yml](.github/workflows/release.yml).
 
@@ -218,7 +218,7 @@ that need to be loaded.
 By default, there are two modes:
 
 - `production` is used by default
-- `development` is used by `npm start` script
+- `development` is used by `bun run start` script
 
 When running the build script, the environment variables are loaded from the following files in your project root:
 
@@ -246,61 +246,61 @@ will not.
 > [!TIP]
 > You can change that prefix or add another. See [`envPrefix`](https://vitejs.dev/config/shared-options.html#envprefix).
 
-### NPM Scripts
+### Bun Scripts
 
 ```sh
-npm start
+bun run start
 ```
 Start application in development more with hot-reload.
 
 ---
 ```sh
-npm run build
+bun run build
 ```
 Runs the `build` command in all workspaces if present.
 
 ---
 ```sh
-npm run compile
+bun run compile
 ```
 First runs the `build` script,
 then compiles the project into executable using `electron-builder` with the specified configuration.
 
 ---
 ```sh
-npm run compile -- --dir -c.asar=false
+bun run compile -- --dir -c.asar=false
 ```
-Same as `npm run compile` but pass to `electron-builder` additional parameters to disable asar archive and installer
+Same as `bun run compile` but pass to `electron-builder` additional parameters to disable asar archive and installer
 creating.
 Useful for debugging compiled application.
 
 ---
 ```sh
-npm run test
+bun run test
 ```
 Executes end-to-end tests on **compiled app** using Playwright.
 
 ---
 ```sh
-npm run typecheck
+bun run typecheck
 ```
 Runs the `typecheck` command in all workspaces if present.
 
 ---
 ```sh
-npm run create-renderer
+bun run create-renderer
 ```
-Initializes a new Vite project named `renderer`. Basically same as `npm create vite`.
+Initializes a new Vite project named `renderer`. Basically same as `bun create vite`.
 
 ---
 ```sh
-npm run integrate-renderer
+bun run integrate-renderer
 ```
 Starts the integration process of the renderer using the Vite Electron builder.
 
 ---
 ```sh
-npm run init
+bun run init
 ```
 Set up the initial environment by creating a new renderer, integrating it, and installing the necessary packages.
 

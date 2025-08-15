@@ -14,17 +14,19 @@
     "packages/*"
   ],
   "engines": {
-    "node": ">=23.0.0"
+  "node": ">=23.0.0",
+  "bun": ">=1.0.0"
   },
   "scripts": {
-    "build": "npm run build -ws --if-present",
-    "compile": "npm run build && electron-builder build --config electron-builder.mjs",
-    "test": "npx playwright test ./tests/e2e.spec.ts",
-    "start": "node packages/dev-mode.js",
-    "typecheck": "npm run typecheck -ws --if-present",
-    "create-renderer": "cd packages && node ./integrate-renderer/create-renderer.js",
-    "integrate-renderer": "npm start --workspace @app/integrate-renderer",
-    "init": "npm run create-renderer && npm run integrate-renderer && npm install"
+  "workspace-run": "bun scripts/workspace-run.mjs",
+  "build": "bun run workspace-run build",
+  "compile": "bun run build && bunx electron-builder build --config electron-builder.mjs",
+  "test": "bunx playwright test ./tests/e2e.spec.ts",
+  "start": "bun packages/dev-mode.js",
+  "typecheck": "bun run workspace-run typecheck",
+  "create-renderer": "cd packages && bun ./integrate-renderer/create-renderer.js",
+  "integrate-renderer": "bun run workspace-run start @app/integrate-renderer",
+  "init": "bun run create-renderer && bun run integrate-renderer && bun install"
   },
   "devDependencies": {
     "@npmcli/map-workspaces": "4.0.2",
